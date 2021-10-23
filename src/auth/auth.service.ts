@@ -15,10 +15,10 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async findUser(email: string) {
+  async findUser(login: string) {
     const findOne = await this.authRepository
       .createQueryBuilder('FindReview')
-      .where('email = :email', { email: email })
+      .where('login = :login', { login: login })
       .getOne();
     return findOne;
   }

@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { useContainer } from 'typeorm';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -14,7 +15,7 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
-
+  useContainer(app.select(AppModule), { fallbackOnErrors: true });
   await app.listen(3000);
   console.log(`Application is running on: ${await app.getUrl()}`);
 }
